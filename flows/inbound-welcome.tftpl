@@ -1,0 +1,90 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "65e15ce7-618a-43e7-a93f-5373ff730e6f",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "34bf306d-97ae-4073-bc0f-856e2afb2e52": {
+        "position": {
+          "x": 848,
+          "y": 287.2
+        }
+      },
+      "65e15ce7-618a-43e7-a93f-5373ff730e6f": {
+        "position": {
+          "x": 272.8,
+          "y": 84.8
+        }
+      },
+      "2402787b-5094-4f79-8f5f-0d99f7911820": {
+        "position": {
+          "x": 574.4,
+          "y": -8
+        },
+        "parameters": {
+          "QueueId": {
+            "displayName": "Support"
+          }
+        },
+        "queue": {
+          "id": "${queue_arn}",
+          "text": "Support"
+        }
+      }
+    },
+    "Annotations": [],
+    "name": "Inbound welcome",
+    "description": "",
+    "type": "customerQueue",
+    "status": "published",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "34bf306d-97ae-4073-bc0f-856e2afb2e52",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "SkipWhenDTMFBufferEnabled": "false",
+        "Text": "Willkommen im Amazon Connect Lab von Stefan.\nSie werden nun mit dem Support verbunden."
+      },
+      "Identifier": "65e15ce7-618a-43e7-a93f-5373ff730e6f",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "2402787b-5094-4f79-8f5f-0d99f7911820",
+        "Errors": [
+          {
+            "NextAction": "34bf306d-97ae-4073-bc0f-856e2afb2e52",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "${queue_arn}"
+      },
+      "Identifier": "2402787b-5094-4f79-8f5f-0d99f7911820",
+      "Type": "DequeueContactAndTransferToQueue",
+      "Transitions": {
+        "NextAction": "34bf306d-97ae-4073-bc0f-856e2afb2e52",
+        "Errors": [
+          {
+            "NextAction": "34bf306d-97ae-4073-bc0f-856e2afb2e52",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "34bf306d-97ae-4073-bc0f-856e2afb2e52",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}
