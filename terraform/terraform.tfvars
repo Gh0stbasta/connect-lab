@@ -3,4 +3,4 @@ connect_instance_alias = "stefan-connect-lab"
 
 environment   = "lab"
 business_unit = "learning"
-project_name  = "amazon-connect"
+project_name  = "albert-connect-lab"
